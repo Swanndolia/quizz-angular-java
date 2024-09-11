@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a192f, #112240);
+  background: linear-gradient(135deg, #000000, #1a1a1a);
   overflow: hidden;
   position: relative;
 }
@@ -17,10 +17,10 @@
   right: 0;
   bottom: 0;
   background: 
-    radial-gradient(circle at 20% 20%, rgba(100, 255, 218, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 100, 100, 0.2) 0%, transparent 50%);
+    radial-gradient(circle at 20% 20%, rgba(255, 102, 0, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 204, 255, 0.4) 0%, transparent 50%);
   z-index: 1;
-  animation: gradientShift 20s ease infinite;
+  animation: gradientShift 15s ease infinite;
   pointer-events: none;
 }
 
@@ -28,59 +28,70 @@
   position: relative;
   z-index: 2;
   padding: 3rem;
-  background: rgba(17, 34, 64, 0.8);
+  background: rgba(26, 26, 26, 0.2);
   border-radius: 20px;
-  box-shadow: 0 0 50px rgba(100, 255, 218, 0.3), 0 0 100px rgba(255, 100, 100, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(10px);
-  animation: glowPulse 8s ease-in-out infinite, floatAnimation 6s ease-in-out infinite;
-  transform: perspective(1000px) rotateX(5deg);
-  transition: transform 0.5s ease;
-}
-
-.content-wrapper:hover {
-  transform: perspective(1000px) rotateX(0deg) scale(1.02);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  animation: glowPulse 6s ease-in-out infinite;
 }
 
 h1 {
   font-size: 4.5em;
-  color: #64ffda;
+  color: rgba(255, 255, 255, 0.9);
   text-transform: uppercase;
-  letter-spacing: 5px;
+  letter-spacing: 3px;
   margin-bottom: 30px;
   position: relative;
-  animation: neonGlow 1.5s ease-in-out infinite alternate;
+  animation: slideInFromLeft 1.5s ease-out;
 }
 
 h1::after {
   content: '';
   position: absolute;
-  bottom: -15px;
+  bottom: -10px;
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, #64ffda, #ff6464);
-  animation: lineGrow 2s ease-out forwards, neonLine 1.5s ease-in-out infinite alternate;
+  background: linear-gradient(90deg, rgba(255, 102, 0, 0.7), rgba(0, 204, 255, 0.7));
+  animation: lineGrow 2s ease-out forwards;
 }
 
 .question-block {
   font-size: 1.8em;
-  color: #8892b0;
-  margin-bottom: 30px;
-  animation: fadeIn 2s ease-out, floatAnimation 6s ease-in-out infinite;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 50px;
+  padding: 20px;
+  background: rgba(26, 26, 26, 0.2);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  animation: fadeIn 2s ease-out;
+}
+
+.answer-options {
+  font-size: 1.4em;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 20px;
 }
 
 button {
   padding: 15px 30px;
   font-size: 1.2em;
-  color: #0a192f;
-  background: linear-gradient(45deg, #64ffda, #64ff9f);
-  border: none;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 102, 0, 0.2);
+  border: 1px solid rgba(255, 102, 0, 0.5);
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  z-index: 10;
+  z-index: 3;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 button::before {
@@ -90,9 +101,9 @@ button::before {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: all 0.5s ease;
-  z-index: -1;
+  pointer-events: none;
 }
 
 button:hover::before {
@@ -100,8 +111,9 @@ button:hover::before {
 }
 
 button:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 10px 20px rgba(100, 255, 218, 0.4);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3);
+  background: rgba(255, 102, 0, 0.3);
 }
 
 input[type="radio"] {
@@ -109,14 +121,15 @@ input[type="radio"] {
   -webkit-appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid #64ffda;
+  border: 2px solid rgba(0, 204, 255, 0.7);
   border-radius: 50%;
   outline: none;
   transition: all 0.3s ease;
   position: relative;
   cursor: pointer;
   margin-right: 10px;
-  z-index: 10;
+  z-index: 3;
+  background: rgba(0, 204, 255, 0.1);
 }
 
 input[type="radio"]:checked::before {
@@ -127,7 +140,7 @@ input[type="radio"]:checked::before {
   transform: translate(-50%, -50%);
   width: 12px;
   height: 12px;
-  background-color: #64ffda;
+  background-color: rgba(0, 204, 255, 0.9);
   border-radius: 50%;
   animation: radioCheck 0.3s ease-out;
 }
@@ -138,18 +151,8 @@ input[type="radio"]:checked::before {
 }
 
 @keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 50px rgba(100, 255, 218, 0.3), 0 0 100px rgba(255, 100, 100, 0.3); }
-  50% { box-shadow: 0 0 100px rgba(100, 255, 218, 0.5), 0 0 200px rgba(255, 100, 100, 0.5); }
-}
-
-@keyframes neonGlow {
-  from { text-shadow: 0 0 5px #64ffda, 0 0 10px #64ffda, 0 0 15px #64ffda, 0 0 20px #64ffda; }
-  to { text-shadow: 0 0 10px #64ffda, 0 0 20px #64ffda, 0 0 30px #64ffda, 0 0 40px #64ffda; }
-}
-
-@keyframes neonLine {
-  from { box-shadow: 0 0 5px #64ffda, 0 0 10px #64ffda; }
-  to { box-shadow: 0 0 10px #64ffda, 0 0 20px #64ffda; }
+  0%, 100% { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); }
+  50% { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.6); }
 }
 
 @keyframes lineGrow {
