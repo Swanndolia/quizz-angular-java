@@ -1,0 +1,15 @@
+<div class="home-container">
+  <h1>Welcome to the Quiz App</h1>
+  <p>Test your knowledge with our exciting quizzes!</p>
+  
+  <div class="quiz-options">
+    <button (click)="startNewQuiz()">Start New Quiz</button>
+    <button (click)="viewPastResults()">View Past Results</button>
+  </div>
+
+  <div class="user-profile">
+    <h2>Welcome back, {{ currentUser.name }}!</h2>
+    <p>You've completed {{ currentUser.quizzesTaken }} quizzes.</p>
+    <button (click)="editProfile()">Edit Profile</button>
+  </div>
+</div>
