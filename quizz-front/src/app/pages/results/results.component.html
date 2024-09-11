@@ -1,29 +1,37 @@
 <div class="results-container">
   <h1 class="groovy-title">Quiz Results</h1>
 
-  <div *ngIf="userResults.length === 0">
+  @if (userResults.length === 0) {
     <p>No quiz results available.</p>
-  </div>
+  } @else {
+    @for (quiz of userResults; track quiz; let quizIndex = $index) {
+      <div class="quiz-result">
+        <button (click)="toggleQuizDetails(quizIndex)" class="quiz-toggle-btn">
+          Quiz {{quizIndex + 1}} - Correct Answers: {{getCorrectAnswersCount(quiz)}} out of {{quiz.length}}
+        </button>
 
-  <div *ngFor="let quiz of userResults; let quizIndex = index" class="quiz-result">
-    <button (click)="toggleQuizDetails(quizIndex)" class="quiz-toggle-btn">
-      Quiz {{quizIndex + 1}} - Correct Answers: {{getCorrectAnswersCount(quiz)}} out of {{quiz.length}}
-    </button>
-
-    <div *ngIf="quizDetailsVisible[quizIndex]" class="quiz-details">
-      <div *ngFor="let result of quiz" class="result-summary">
-        <p>
-          <strong>Question:</strong> {{result.question}}
-        </p>
-        <p [ngClass]="{'correct': result.isCorrect, 'incorrect': !result.isCorrect}">
-          <strong>Your Answer:</strong> {{result.selectedAnswer || 'Not answered'}}
-        </p>
-        <p *ngIf="!result.isCorrect" class="correct">
-          <strong>Correct Answer:</strong> {{result.correctAnswer}}
-        </p>
+        @if (quizDetailsVisible[quizIndex]) {
+          <div class="quiz-details">
+            @for (result of quiz; track result) {
+              <div class="result-summary">
+                <p>
+                  <strong>Question:</strong> {{result.question}}
+                </p>
+                <p [ngClass]="{'correct': result.isCorrect, 'incorrect': !result.isCorrect}">
+                  <strong>Your Answer:</strong> {{result.selectedAnswer || 'Not answered'}}
+                </p>
+                @if (!result.isCorrect) {
+                  <p class="correct">
+                    <strong>Correct Answer:</strong> {{result.correctAnswer}}
+                  </p>
+                }
+              </div>
+            }
+          </div>
+        }
       </div>
-    </div>
-  </div>
+    }
+  }
 
   <button (click)="goToHome()">Back to Home</button>
 </div>

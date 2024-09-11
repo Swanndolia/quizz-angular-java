@@ -30,7 +30,12 @@ export class QuizComponent implements OnInit {
       this.questions = response.results.map((question: any) => ({
         ...question,
         question: this.decodeHtml(question.question),
-        all_answers: this.shuffleAnswers([question.correct_answer, ...question.incorrect_answers])
+        correct_answer: this.decodeHtml(question.correct_answer),
+        incorrect_answers: question.incorrect_answers.map((answer: string) => this.decodeHtml(answer)),
+        all_answers: this.shuffleAnswers([
+          this.decodeHtml(question.correct_answer),
+          ...question.incorrect_answers.map((answer: string) => this.decodeHtml(answer))
+        ])
       }));
     });
   }
