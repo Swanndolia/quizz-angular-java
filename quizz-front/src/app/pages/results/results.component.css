@@ -3,60 +3,237 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 20px;
-  background: linear-gradient(45deg, #ff00ff, #00ffff);
-  animation: groovyFadeIn 2s ease-in-out, groovyZoomIn 2s ease-in-out;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #000000, #1a1a1a);
+  overflow: hidden;
+  position: relative;
 }
 
-.results-container h2 {
-  font-size: 4em;
-  color: #ff00ff;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px #00ffff;
-  animation: groovySlideInFromTop 2s ease-in-out, groovyPulse 3s infinite;
+.results-container::before,
+.results-container::after {
+  content: '';
+  position: absolute;
+  width: 200vw;
+  height: 200vh;
+  top: -50vh;
+  left: -50vw;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 102, 0, 0.05) 0px,
+    rgba(255, 102, 0, 0.05) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  animation: backgroundScroll 60s linear infinite;
+}
+
+.results-container::after {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(0, 204, 255, 0.05) 0px,
+    rgba(0, 204, 255, 0.05) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  animation: backgroundScroll 40s linear infinite reverse;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 2;
+  padding: 3rem;
+  background: rgba(26, 26, 26, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 0 50px rgba(255, 102, 0, 0.3), 0 0 100px rgba(0, 204, 255, 0.3);
+  backdrop-filter: blur(10px);
+  animation: glowPulse 8s ease-in-out infinite, floatAnimation 6s ease-in-out infinite;
+  transform: perspective(1000px) rotateX(5deg);
+  transition: all 0.5s ease;
+}
+
+.content-wrapper:hover {
+  transform: perspective(1000px) rotateX(0deg) scale(1.05);
+  box-shadow: 0 0 100px rgba(255, 102, 0, 0.5), 0 0 200px rgba(0, 204, 255, 0.5);
+}
+
+h2 {
+  font-size: 4.5em;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  margin-bottom: 30px;
+  position: relative;
+  animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #ff6600, #00ccff);
+  animation: lineGrow 2s ease-out forwards, neonLine 1.5s ease-in-out infinite alternate;
 }
 
 .result-summary {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #d1c4e9; /* light purple border */
-  border-radius: 4px;
-  background-color: #f8bbd0; /* light pink */
-}
-
-.result-summary p {
-  margin: 5px 0;
+  font-size: 1.8em;
+  color: #cccccc;
+  margin-bottom: 30px;
+  animation: fadeIn 2s ease-out;
 }
 
 .result-details {
-  margin-top: 10px;
-  padding: 10px;
-  border-top: 1px solid #ddd;
-  background-color: #e1bee7; /* light purple */
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(51, 51, 51, 0.9));
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: floatAnimation 6s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+.result-details:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .correct {
-  color: #8e24aa; /* dark purple */
+  color: #00ccff;
+  text-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
 }
 
 .incorrect {
-  color: #d81b60; /* dark pink */
+  color: #ff6600;
+  text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
 }
 
 button {
-  padding: 20px 40px;
-  font-size: 1.5em;
-  color: #fff;
-  background-color: #ff00ff;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  color: #ffffff;
+  background: linear-gradient(45deg, #ff6600, #ff9900);
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  animation: groovySwing 2s ease-in-out;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+button:hover::before {
+  left: 100%;
 }
 
 button:hover {
-  background-color: #00ffff;
-  transform: scale(1.2);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(255, 102, 0, 0.4);
+}
+
+@keyframes backgroundScroll {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-100px, -100px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 50px rgba(255, 102, 0, 0.3), 0 0 100px rgba(0, 204, 255, 0.3); }
+  50% { box-shadow: 0 0 100px rgba(255, 102, 0, 0.5), 0 0 200px rgba(0, 204, 255, 0.5); }
+}
+
+@keyframes textGlow {
+  from { text-shadow: 0 0 5px #ff6600, 0 0 10px #ff6600, 0 0 15px #ff6600, 0 0 20px #ff6600; }
+  to { text-shadow: 0 0 10px #00ccff, 0 0 20px #00ccff, 0 0 30px #00ccff, 0 0 40px #00ccff; }
+}
+
+@keyframes neonLine {
+  from { box-shadow: 0 0 5px #ff6600, 0 0 10px #ff6600; }
+  to { box-shadow: 0 0 10px #00ccff, 0 0 20px #00ccff; }
+}
+
+@keyframes lineGrow {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatAnimation {
+  0%, 100% { transform: translateY(0) perspective(1000px) rotateX(5deg); }
+  50% { transform: translateY(-10px) perspective(1000px) rotateX(5deg); }
+}
+
+/* Akkodis-inspired animations */
+@keyframes glitchEffect {
+  0% { transform: translate(0); }
+  20% { transform: translate(-5px, 5px); }
+  40% { transform: translate(-5px, -5px); }
+  60% { transform: translate(5px, 5px); }
+  80% { transform: translate(5px, -5px); }
+  100% { transform: translate(0); }
+}
+
+.glitch-text {
+  position: relative;
+  animation: glitchEffect 5s infinite;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff6600;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #00ccff;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(31px, 9999px, 94px, 0); }
+  10% { clip: rect(112px, 9999px, 76px, 0); }
+  20% { clip: rect(85px, 9999px, 77px, 0); }
+  30% { clip: rect(27px, 9999px, 97px, 0); }
+  40% { clip: rect(64px, 9999px, 98px, 0); }
+  50% { clip: rect(61px, 9999px, 85px, 0); }
+  60% { clip: rect(99px, 9999px, 114px, 0); }
+  70% { clip: rect(34px, 9999px, 115px, 0); }
+  80% { clip: rect(98px, 9999px, 129px, 0); }
+  90% { clip: rect(43px, 9999px, 96px, 0); }
+  100% { clip: rect(82px, 9999px, 64px, 0); }
+}
+
+/* Ensure radio buttons are clickable */
+input[type="radio"] {
+  position: relative;
+  z-index: 20;
 }

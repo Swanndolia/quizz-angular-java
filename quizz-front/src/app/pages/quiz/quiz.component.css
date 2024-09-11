@@ -3,83 +3,177 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 20px;
-  background: linear-gradient(45deg, #ff00ff, #00ffff);
-  animation: groovyFadeIn 2s ease-in-out, groovyZoomIn 2s ease-in-out;
-  color: #333333;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a192f, #112240);
+  overflow: hidden;
+  position: relative;
+}
+
+.quiz-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(100, 255, 218, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 100, 100, 0.2) 0%, transparent 50%);
+  z-index: 1;
+  animation: gradientShift 20s ease infinite;
+  pointer-events: none;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 2;
+  padding: 3rem;
+  background: rgba(17, 34, 64, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 0 50px rgba(100, 255, 218, 0.3), 0 0 100px rgba(255, 100, 100, 0.3);
+  backdrop-filter: blur(10px);
+  animation: glowPulse 8s ease-in-out infinite, floatAnimation 6s ease-in-out infinite;
+  transform: perspective(1000px) rotateX(5deg);
+  transition: transform 0.5s ease;
+}
+
+.content-wrapper:hover {
+  transform: perspective(1000px) rotateX(0deg) scale(1.02);
+}
+
+h1 {
+  font-size: 4.5em;
+  color: #64ffda;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  margin-bottom: 30px;
+  position: relative;
+  animation: neonGlow 1.5s ease-in-out infinite alternate;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #64ffda, #ff6464);
+  animation: lineGrow 2s ease-out forwards, neonLine 1.5s ease-in-out infinite alternate;
 }
 
 .question-block {
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: #444444;
-}
-
-.question-block:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  font-size: 1.8em;
+  color: #8892b0;
+  margin-bottom: 30px;
+  animation: fadeIn 2s ease-out, floatAnimation 6s ease-in-out infinite;
 }
 
 button {
-  padding: 20px 40px;
-  font-size: 1.5em;
-  color: #fff;
-  background-color: #ff00ff;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  color: #0a192f;
+  background: linear-gradient(45deg, #64ffda, #64ff9f);
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  animation: groovySwing 2s ease-in-out;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: all 0.5s ease;
+  z-index: -1;
+}
+
+button:hover::before {
+  left: 100%;
 }
 
 button:hover {
-  background-color: #00ffff;
-  transform: scale(1.2);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(100, 255, 218, 0.4);
 }
 
 input[type="radio"] {
-    cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #64ffda;
+  border-radius: 50%;
+  outline: none;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  margin-right: 10px;
+  z-index: 10;
 }
 
-@keyframes groovyFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+input[type="radio"]:checked::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background-color: #64ffda;
+  border-radius: 50%;
+  animation: radioCheck 0.3s ease-out;
 }
 
-@keyframes groovyZoomIn {
-  from {
-    transform: scale(0.3);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
-@keyframes groovySwing {
-  20% {
-    transform: rotate(20deg);
-  }
-  40% {
-    transform: rotate(-10deg);
-  }
-  60% {
-    transform: rotate(5deg);
-  }
-  80% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 50px rgba(100, 255, 218, 0.3), 0 0 100px rgba(255, 100, 100, 0.3); }
+  50% { box-shadow: 0 0 100px rgba(100, 255, 218, 0.5), 0 0 200px rgba(255, 100, 100, 0.5); }
+}
+
+@keyframes neonGlow {
+  from { text-shadow: 0 0 5px #64ffda, 0 0 10px #64ffda, 0 0 15px #64ffda, 0 0 20px #64ffda; }
+  to { text-shadow: 0 0 10px #64ffda, 0 0 20px #64ffda, 0 0 30px #64ffda, 0 0 40px #64ffda; }
+}
+
+@keyframes neonLine {
+  from { box-shadow: 0 0 5px #64ffda, 0 0 10px #64ffda; }
+  to { box-shadow: 0 0 10px #64ffda, 0 0 20px #64ffda; }
+}
+
+@keyframes lineGrow {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatAnimation {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes slideInFromLeft {
+  0% { transform: translateX(-100px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes radioCheck {
+  0% { transform: translate(-50%, -50%) scale(0); }
+  50% { transform: translate(-50%, -50%) scale(1.5); }
+  100% { transform: translate(-50%, -50%) scale(1); }
 }
